@@ -1,29 +1,53 @@
-#define syn 0
-#define data 1
-int counter = 0;
+const bool id[] = {0,0,1,0};
+#define synPin 0
+#define dataPin 1
 
 void setup() {
+  pinMode(synPin,INPUT);
+  pinMode(dataPin,INPUT);
+  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
 }
 
+bool receiver[] = {0,0,0,1};
+bool data[] = {0};
+
 void loop() {
-  delay(1000 * 5);
-  Send(HIGH);
-  delay(1000 * 5);
-  Send(LOW);
+  delay(1000*2);
+  Send(0);
+  Send(0);
+  Send(1);
+  Send(1);
 }
 
 void Send(bool state)
 {
-  pinMode(syn, OUTPUT);
-  pinMode(data,OUTPUT);
+  pinMode(synPin, OUTPUT);
+  pinMode(dataPin,OUTPUT);
 
-  digitalWrite(data,state);
+  digitalWrite(dataPin,state);
 
-  digitalWrite(syn,HIGH);
+  digitalWrite(synPin,HIGH);
   delay(1);
-  digitalWrite(syn,LOW);
-
+  digitalWrite(synPin,LOW);
+  delay(2);
   
-  pinMode(syn, INPUT);
-  pinMode(data,INPUT);
+  pinMode(synPin, INPUT);
+  pinMode(dataPin,INPUT);
+}
+
+
+void SendData(bool id[],bool data[])
+{ 
+  Send(id[0]);
+  Send(id[1]);
+  Send(id[2]);
+  Send(id[3]);
+
+  int len = sizeof(data)/sizeof(bool);
+
+  for(int i = 0; i < len; i++)
+  {
+    Send(data[i]);
+  }
 }
