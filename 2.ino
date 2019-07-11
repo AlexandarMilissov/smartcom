@@ -1,8 +1,9 @@
 #define synPin 0
 #define dataPin 1
 
-const bool id[] = {0,0,0,1};
-//const bool id[] = {0,0,1,1};
+//const bool id[] = {0,0,0,1};
+//const bool id[] = {0,0,1,0};
+const bool id[] = {0,0,1,1};
 int isMe = 0;
 bool isReceiving = false;
 bool sentID[4];
@@ -43,16 +44,18 @@ void setup() {
   pinMode(2,OUTPUT);
   pinMode(3,OUTPUT);
   lastTime = millis();
+  /*
+  delay(1000*2);
+  SendID(0,0,1,0);
+  Send(1);
+  Send(1);
+  */
 }
 void loop() {
 
   //sending data
   if(!isReceiving)
   {
-    delay(1000*2);
-    SendID(0,0,1,1);
-    Send(1);
-    Send(1);
   }
 
 
@@ -106,6 +109,10 @@ void loop() {
       if(bits == 6)
       {
         digitalWrite(3,receivedData);
+        delay(1000);
+        SendID(0,0,0,1);
+        Send(1);
+        Send(1);
       }
     }
   }
