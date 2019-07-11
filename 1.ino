@@ -14,10 +14,15 @@ bool data[] = {0};
 
 void loop() {
   delay(1000*2);
-  Send(0);
-  Send(0);
-  Send(1);
-  Send(1);
+  SendID(0,0,0,1);
+}
+
+void SendID(bool id0,bool id1,bool id2,bool id3)
+{
+  Send(id0);
+  Send(id1);
+  Send(id2);
+  Send(id3);
 }
 
 void Send(bool state)
